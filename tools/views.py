@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
 from tools.models import Material, MaterialType, Entity, EntityType, UserType, User, UserMaterial
 
@@ -36,10 +37,12 @@ class EntityTypeViewSet(ModelViewSet):
         entity = EntityType.objects.all()
         return entity
 
+
 class UserTypeViewSet(ModelViewSet):
 
     serializer_class = UserTypeSerializer
-    
+    permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
         users_types = UserType.objects.all()
         return users_types
@@ -48,7 +51,8 @@ class UserTypeViewSet(ModelViewSet):
 class UserViewSet(ModelViewSet):
 
     serializer_class = UserSerializer
-    
+    #permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
         users = User.objects.all()
         return users
@@ -57,7 +61,7 @@ class UserViewSet(ModelViewSet):
 class UserMaterialViewSet(ModelViewSet):
 
     serializer_class = UserMaterialSerializer
-    
+
     def get_queryset(self):
         requests = UserMaterial.objects.all()
         return requests

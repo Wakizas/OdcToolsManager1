@@ -23,21 +23,19 @@ router.register('request', UserMaterialViewSet, basename='request')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     path('openapi/', get_schema_view(
-        title="ODC Tools Manager",
-        description="The management of tools in ODC"
-    ), name='openapi-schema'),
+         title="ODC TOOLS MANAGER",
+         description="ODC Material Management"
+         ), name='openapi-schema'),
 
     path('docs/', TemplateView.as_view(
         template_name='documentation.html',
         extra_context={'schema_url': 'openapi-schema'}
     ), name='swagger-ui'),
-
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
     # allauth
     path('accounts/', include('allauth.urls')),
 

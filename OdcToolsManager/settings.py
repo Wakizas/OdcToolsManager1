@@ -140,6 +140,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/?verification=1'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/?verification=1'
+LOGIN_REDIRECT_URL = '/api/material/'
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -179,9 +181,6 @@ SIMPLE_JWT = {
 
 # Custom Form
 
-# ACCOUNT_FORMS = {
-#    'signup': 'tools.forms.CustomSignupForm',
-# }
-
-
-
+ACCOUNT_FORMS = {
+    'signup': 'tools.forms.CustomSignupForm',
+}
