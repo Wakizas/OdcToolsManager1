@@ -3,6 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from tools.managers import CustomUserManager
 
+
 class Entity(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     entity_type = models.ForeignKey('EntityType', models.DO_NOTHING)
@@ -29,7 +30,8 @@ class EntityType(models.Model):
 class Material(models.Model):
     name = models.CharField(max_length=200)
     characteristics = models.CharField(max_length=500, blank=True, null=True)
-    equipment_condition = models.CharField(max_length=100, blank=True, null=True)
+    equipment_condition = models.CharField(
+        max_length=100, blank=True, null=True)
     entity = models.ForeignKey(Entity, models.DO_NOTHING)
     material_type = models.ForeignKey('MaterialType', models.DO_NOTHING)
 
@@ -47,7 +49,7 @@ class MaterialType(models.Model):
     class Meta:
         managed = False
         db_table = 'material_type'
-    
+
     def __str__(self):
         return self.label
 
@@ -57,6 +59,7 @@ class UserType(models.Model):
 
     class Meta:
         db_table = 'user_type'
+
     def __str__(self):
         return self.name
 
@@ -67,10 +70,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=250, unique=True)
     id_number = models.CharField(max_length=10, unique=True)
     phone_number = models.CharField(max_length=10, unique=True, null=True)
-    user_type = models.ForeignKey('UserType', models.DO_NOTHING)
+    user_type = models.ForeignKey('UserType', models.DO_NOTHING, default=1)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
-    
+
     objects = CustomUserManager()
 
     class Meta:
@@ -90,7 +93,3 @@ class UserMaterial(models.Model):
 
     class Meta:
         db_table = 'user_material'
-
-    
-
-    
